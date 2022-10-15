@@ -72,15 +72,17 @@ function PostForm() {
           value={inputValue}
           className="form-control"
         />
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg, .webp"
-          id="post_imageFile"
-          name="post_imageFile"
-          onInput={imageChoosedOnInput}
-          className="form-control"
-        />
-
+        <label>
+          Fichier :
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg, .webp"
+            id="post_imageFile"
+            name="post_imageFile"
+            onInput={imageChoosedOnInput}
+            className="form-control"
+          />
+        </label>
         <div>
           {imageName ? (
             <Button name="Publier" />

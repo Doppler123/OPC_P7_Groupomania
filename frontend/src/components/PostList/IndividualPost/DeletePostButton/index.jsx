@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import "./deleteButton.scss"
+import "./deletePostButton.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
@@ -34,7 +34,7 @@ const DeleteButton = ({ post_id }) => {
   }
 
   return (
-    <button onClick={deletePost} className="btn btn-danger" id="deleteButton">
+    <button onClick={deletePost} className="btn btn-danger">
       <span>
         <FontAwesomeIcon icon={faTrashCan} color={"white"} />
       </span>

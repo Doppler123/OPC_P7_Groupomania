@@ -13,7 +13,7 @@ function Footer() {
         </div>
 
         <div className="col mb-3">
-          <h5>A propos :</h5>
+          <h2>A propos :</h2>
           <ul className="nav flex-column">
             <li className="nav-item mb-2">
               <p>Fonctionnement du site</p>
@@ -25,7 +25,7 @@ function Footer() {
         </div>
 
         <div className="col mb-3">
-          <h5 className="card-title">Assistance :</h5>
+          <h2 className="card-title">Assistance :</h2>
           <ul className="nav flex-column">
             <li className="nav-item mb-2">
               <p>Contacter l'administrateur</p>

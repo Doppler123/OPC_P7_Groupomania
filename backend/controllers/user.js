@@ -13,8 +13,8 @@ exports.signup = async (req, res, next) => {
       user_password: hashedPassword
       };
       const userEmailWithDotationMarks = '"'+user.user_email+'"'
-      const sqlExists = "SELECT EXISTS (SELECT * FROM users WHERE user_email=" + userEmailWithDotationMarks + ")";
-      db.query(sqlExists, user, (err, result) => {
+      const sqlExists = "SELECT EXISTS (SELECT * FROM users WHERE user_email=?)";
+      db.query(sqlExists, userEmailWithDotationMarks, (err, result) => {
       parsedResultAsAnObject = (JSON.parse(JSON.stringify(result[0])))
       if (Object.values(parsedResultAsAnObject)==1) {
         res.status(200).json({ message: "This email is already existing in database" });
@@ -82,7 +82,7 @@ exports.signup = async (req, res, next) => {
       } else if (!result[0]) {
         res.status(200).json({
           error: true,
-          message: "Identifiant et/ou mot de passe incorrect"
+          message: "Wrong connection ID and/or password"
         })
       }
     });
