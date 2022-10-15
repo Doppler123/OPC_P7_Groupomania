@@ -1,0 +1,24 @@
+footer {
+    margin-bottom: 30px;
+    padding-top: 40px;
+}
+
+footer .mb-3{
+    margin : 0 20px 0 20px; 
+    padding: 0;
+}
+
+footer .mb-3 img{
+    width: 50%;
+}
+
+footer ul li p{
+    margin-bottom: 0;
+}
+
+#iconAndCopyright{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
