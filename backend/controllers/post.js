@@ -10,7 +10,7 @@ exports.createPost = (req, res, next) => {
   };
   const decodedBearerToken = jwt.verify(req.cookies.bearerToken, process.env.JWT_SECRET); 
   const sql =`INSERT INTO posts (post_text, post_userId, post_imageName, post_imagePath) VALUES (?, ?, ?, ?)`
-  db.query(sql, body.post_text, decodedBearerToken.user_id, body.post_imageName, file.path, (err, result) => {
+  db.query(sql, [body.post_text, decodedBearerToken.user_id, body.post_imageName, file.path], (err, result) => {
     if (result){
       res.status(201).json({ message: 'Message has been posted !'});
     }
@@ -53,12 +53,11 @@ exports.modifyPost = (req, res, next) => {
   const decodedBearerToken = jwt.verify(req.cookies.bearerToken, process.env.JWT_SECRET); 
   const { post_text} =  req.body;
   let sql = null;
-  const dataWithQuotationMark = "'" + post_text + "'"
   decodedBearerToken.user_id == 36 ?   // the admin's user_id is 36
   sql = `UPDATE posts SET post_text =? WHERE post_id =?`
   :
   sql = `UPDATE posts SET post_text =? WHERE post_id =? AND  post_userId =?` 
-  db.query(sql, dataWithQuotationMark, req.params.id, decodedBearerToken.user_id, (err, result) => {
+  db.query(sql, [post_text, req.params.id, decodedBearerToken.user_id], (err, result) => {
     if (result){
       res.status(200).json(result);
     }
@@ -77,7 +76,7 @@ exports.deletePost = (req, res, next) => {
   sql = `DELETE FROM posts WHERE post_id =?` 
   :
   sql = `DELETE FROM posts WHERE post_id =? AND  post_userId =?`
-  db.query(sql, req.params.id, decodedBearerToken.user_id, (err, result) => {
+  db.query(sql, [req.params.id, decodedBearerToken.user_id], (err, result) => {
     if (result){
     if (result.affectedRows==1){
     res.status(200).json(result);
@@ -96,7 +95,7 @@ exports.deletePost = (req, res, next) => {
 exports.likeUnlikePost = (req, res) => {
   const { userId, postId } = req.body;
   const sql = `SELECT * FROM likes WHERE like_userId =? AND like_postId =?`;
-  db.query(sql, userId, postId, (err, result) => {
+  db.query(sql, [userId, postId], (err, result) => {
     if (err) {
       console.log(err);
       res.status(404).json({ err });
@@ -104,7 +103,7 @@ exports.likeUnlikePost = (req, res) => {
     }
     if (result.length === 0) {
       const sql = `INSERT INTO likes (like_userId	, like_postId) VALUES (?, ?)`;
-      db.query(sql, userId, postId, (err, result) => {
+      db.query(sql, [userId, postId], (err, result) => {
         res.status(200).json(result);
         if (err) {
           console.log(err);
@@ -114,7 +113,7 @@ exports.likeUnlikePost = (req, res) => {
       });
     } else {
       const sql = `DELETE FROM likes WHERE like_userId =? AND like_postId =?`;
-      db.query(sql, userId, postId, (err, result) => {
+      db.query(sql, [userId, postId], (err, result) => {
         res.status(200).json(result);
         if (err) {
           console.log(err);
@@ -143,7 +142,7 @@ exports.totalOfLikes = (req, res) => {
 exports.isPostLikedByUser = (req, res) => {
   const { userId, postId } = req.body;
   const sql = `SELECT like_postId, like_userId FROM likes WHERE like_userId =? AND like_postId	=?`;
-  db.query(sql, userId, postId, (err, result) => {
+  db.query(sql, [userId, postId], (err, result) => {
     if (result){
       res.status(200).json(result);
     }
@@ -153,8 +152,3 @@ exports.isPostLikedByUser = (req, res) => {
     }
   });
 };
-
-
-
-
-

@@ -7,6 +7,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
 const DeleteButton = ({ post_id }) => {
   const deletePost = () => {
+    alert("Etes-vous sûr de vouloir supprimer cette publication?")
     axios.defaults.headers.post["Content-Type"] = "application/json"
     axios.defaults.timeout = 6000
     axios.defaults.withCredentials = true

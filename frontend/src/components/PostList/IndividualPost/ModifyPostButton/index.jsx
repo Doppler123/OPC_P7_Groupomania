@@ -26,6 +26,7 @@ const ModifyButton = ({ post_id }) => {
       post_text: inputValue,
     }
 
+    alert("Etes-vous sûr de vouloir modifier cette publication?")
     axios.defaults.headers.post["Content-Type"] = "application/json"
     axios.defaults.timeout = 6000
     axios.defaults.withCredentials = true
